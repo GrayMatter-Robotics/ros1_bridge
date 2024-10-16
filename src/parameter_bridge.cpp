@@ -233,11 +233,15 @@ rclcpp::QoS qos_from_params(XmlRpc::XmlRpcValue qos_params)
 bool parse_command_options(
   int argc, char ** argv, std::vector<const char *> & ros1_args,
   std::vector<const char *> & ros2_args, const char * & topics_parameter_name,
-  const char * & services_1_to_2_parameter_name, const char * & services_2_to_1_parameter_name)
+  const char * & services_1_to_2_parameter_name, const char * & services_2_to_1_parameter_name,
+  const char * & actions_1_to_2_parameter_name, const char * & actions_2_to_1_parameter_name
+)
 {
   topics_parameter_name = "topics";
   services_1_to_2_parameter_name = "services_1_to_2";
   services_2_to_1_parameter_name = "services_2_to_1";
+  actions_1_to_2_parameter_name = "actions_1_to_2";
+  actions_2_to_1_parameter_name = "actions_2_to_1";
 
   std::vector<const char *> args(argv, argv + argc);
 
@@ -246,6 +250,8 @@ bool parse_command_options(
     "--topics",
     "--services-1-to-2",
     "--services-2-to-1",
+    "--actions-1-to-2",
+    "--actions-2-to-1",
     "--ros1-args",
     "--ros2-args",
   };
@@ -265,6 +271,10 @@ bool parse_command_options(
     ss << " --services-1-to-2: Name of the parameter that contains the list of services to bridge from ROS 1 to ROS 2.";
     ss << std::endl;
     ss << " --services-2-to-1: Name of the parameter that contains the list of services to bridge from ROS 2 to ROS 1.";
+    ss << std::endl;
+    ss << " --actions-1-to-2: Name of the parameter that contains the list of actions to bridge from ROS 1 to ROS 2.";
+    ss << std::endl;
+    ss << " --actions-2-to-1: Name of the parameter that contains the list of actions to bridge from ROS 2 to ROS 1.";
     ss << std::endl;
     ss << " --ros1-args: Arguments to pass to the ROS 1 bridge node." << std::endl;
     ss << " --ros2-args: Arguments to pass to the ROS 2 bridge node." << std::endl;
@@ -304,6 +314,14 @@ bool parse_command_options(
 
   if (!ros1_bridge::get_option_value(args, "--services-2-to-1", services_2_to_1_parameter_name, true)) {
     printf("Using default services 2 to 1 parameter name: %s\n", services_2_to_1_parameter_name);
+  }
+
+  if (!ros1_bridge::get_option_value(args, "--actions-1-to-2", actions_1_to_2_parameter_name, true)) {
+    printf("Using default actions 1 to 2 parameter name: %s\n", actions_1_to_2_parameter_name);
+  }
+
+  if (!ros1_bridge::get_option_value(args, "--actions-2-to-1", actions_2_to_1_parameter_name, true)) {
+    printf("Using default actions 2 to 1 parameter name: %s\n", actions_2_to_1_parameter_name);
   }
 
   auto logger = rclcpp::get_logger("ros1_bridge");
@@ -359,10 +377,18 @@ int main(int argc, char * argv[])
   const char * services_2_to_1_parameter_name;
   const char * service_execution_timeout_parameter_name =
     "ros1_bridge/parameter_bridge/service_execution_timeout";
+  // the actions parameters need to be arrays
+  // and each item needs to be a dictionary with the following keys;
+  // action: the name of the action to bridge (e.g. '/action_name')
+  // type: the type of the action to bridge (e.g. 'pkgname/action/ActionName')
+  const char * actions_1_to_2_parameter_name;
+  const char * actions_2_to_1_parameter_name;
 
   if (!parse_command_options(
       argc, argv, ros1_args, ros2_args, topics_parameter_name,
-      services_1_to_2_parameter_name, services_2_to_1_parameter_name)) {
+      services_1_to_2_parameter_name, services_2_to_1_parameter_name,
+      actions_1_to_2_parameter_name, actions_2_to_1_parameter_name))
+  {
     return 0;
   }
 
@@ -378,6 +404,8 @@ int main(int argc, char * argv[])
   std::list<ros1_bridge::BridgeHandles> all_handles;
   std::list<ros1_bridge::ServiceBridge1to2> service_bridges_1_to_2;
   std::list<ros1_bridge::ServiceBridge2to1> service_bridges_2_to_1;
+  std::list<std::unique_ptr<ros1_bridge::ActionFactoryInterface>> action_bridges_1_to_2;
+  std::list<std::unique_ptr<ros1_bridge::ActionFactoryInterface>> action_bridges_2_to_1;
 
   // Topics
   XmlRpc::XmlRpcValue topics;
@@ -549,6 +577,104 @@ int main(int argc, char * argv[])
       stderr,
       "The parameter '%s' either doesn't exist or isn't an array\n",
       services_2_to_1_parameter_name);
+  }
+
+  // ROS 1 Actions in ROS 2
+  XmlRpc::XmlRpcValue actions_1_to_2;
+  if (
+    ros1_node.getParam(actions_1_to_2_parameter_name, actions_1_to_2) &&
+    actions_1_to_2.getType() == XmlRpc::XmlRpcValue::TypeArray)
+  {
+    for (size_t i = 0; i < static_cast<size_t>(actions_1_to_2.size()); ++i) {
+      std::string action_name = static_cast<std::string>(actions_1_to_2[i]["action"]);
+      std::string type_name = static_cast<std::string>(actions_1_to_2[i]["type"]);
+      printf(
+        "Trying to create bridge for ROS 2 action '%s' with type '%s'\n",
+        action_name.c_str(), type_name.c_str());
+
+      const size_t index = type_name.find("/");
+      if (index == std::string::npos) {
+        fprintf(
+          stderr,
+          "the action '%s' has a type '%s' without a slash.\n",
+          action_name.c_str(), type_name.c_str());
+        continue;
+      }
+      auto factory = ros1_bridge::get_action_factory(
+        "ros2", type_name.substr(0, index), type_name.substr(index + 1));
+      if (factory) {
+        try {
+          factory->create_server_client(ros1_node, ros2_node, action_name);
+          action_bridges_1_to_2.push_back(std::move(factory));
+          printf("Created 1 to 2 bridge for action %s\n", action_name.c_str());
+        } catch (std::runtime_error & e) {
+          fprintf(
+            stderr,
+            "failed to create bridge ROS 1 action '%s' with type '%s': %s\n",
+            action_name.c_str(), type_name.c_str(), e.what());
+        }
+      } else {
+        fprintf(
+          stderr,
+          "failed to create bridge ROS 1 action '%s' no conversion for type '%s'\n",
+          action_name.c_str(), type_name.c_str());
+      }
+    }
+
+  } else {
+    fprintf(
+      stderr,
+      "The parameter '%s' either doesn't exist or isn't an array\n",
+      actions_1_to_2_parameter_name);
+  }
+
+  // ROS 2 Actions in ROS 1
+  XmlRpc::XmlRpcValue actions_2_to_1;
+  if (
+    ros1_node.getParam(actions_2_to_1_parameter_name, actions_2_to_1) &&
+    actions_2_to_1.getType() == XmlRpc::XmlRpcValue::TypeArray)
+  {
+    for (size_t i = 0; i < static_cast<size_t>(actions_2_to_1.size()); ++i) {
+      std::string action_name = static_cast<std::string>(actions_2_to_1[i]["action"]);
+      std::string type_name = static_cast<std::string>(actions_2_to_1[i]["type"]);
+      printf(
+        "Trying to create bridge for ROS 1 action '%s' with type '%s'\n",
+        action_name.c_str(), type_name.c_str());
+
+      const size_t index = type_name.find("/");
+      if (index == std::string::npos) {
+        fprintf(
+          stderr,
+          "the action '%s' has a type '%s' without a slash.\n",
+          action_name.c_str(), type_name.c_str());
+        continue;
+      }
+      auto factory = ros1_bridge::get_action_factory(
+        "ros1", type_name.substr(0, index), type_name.substr(index + 1));
+      if (factory) {
+        try {
+          factory->create_server_client(ros1_node, ros2_node, action_name);
+          action_bridges_2_to_1.push_back(std::move(factory));
+          printf("Created 2 to 1 bridge for action %s\n", action_name.c_str());
+        } catch (std::runtime_error & e) {
+          fprintf(
+            stderr,
+            "failed to create bridge ROS 2 action '%s' with type '%s': %s\n",
+            action_name.c_str(), type_name.c_str(), e.what());
+        }
+      } else {
+        fprintf(
+          stderr,
+          "failed to create bridge ROS 2 action '%s' no conversion for type '%s'\n",
+          action_name.c_str(), type_name.c_str());
+      }
+    }
+
+  } else {
+    fprintf(
+      stderr,
+      "The parameter '%s' either doesn't exist or isn't an array\n",
+      actions_2_to_1_parameter_name);
   }
 
   // ROS 1 asynchronous spinner

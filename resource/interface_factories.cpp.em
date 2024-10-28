@@ -310,8 +310,8 @@ void ServiceFactory<
     @(field["ros1"]["name"])1_it != req1.@(field["ros1"]["name"]).end() &&
     @(field["ros2"]["name"])2_it != req2.@(field["ros2"]["name"]).end()
   ) {
-    auto & @(field["ros1"]["name"])1 = *(@(field["ros1"]["name"])1_it++);
-    auto & @(field["ros2"]["name"])2 = *(@(field["ros2"]["name"])2_it++);
+    auto @(field["ros1"]["name"])1 = *(@(field["ros1"]["name"])1_it++);
+    auto @(field["ros2"]["name"])2 = *(@(field["ros2"]["name"])2_it++);
 @[      else]@
   auto & @(field["ros1"]["name"])1 = req1.@(field["ros1"]["name"]);
   auto & @(field["ros2"]["name"])2 = req2.@(field["ros2"]["name"]);

@@ -409,8 +409,8 @@ void ActionFactory_@(frm_)_@(to_)<
     @(field["ros" + frm]["name"])@(frm)_it != @(type.lower())_msg@(frm).@(field["ros" + frm]["name"]).end() &&
     @(field["ros" + to]["name"])@(to)_it != @(type.lower())_msg@(to).@(field["ros" + to]["name"]).end()
   ) {
-    auto & @(field["ros" + frm]["name"])@(frm) = *(@(field["ros" + frm]["name"])@(frm)_it++);
-    auto & @(field["ros" + to]["name"])@(to) = *(@(field["ros" + to]["name"])@(to)_it++);
+    auto @(field["ros" + frm]["name"])@(frm) = *(@(field["ros" + frm]["name"])@(frm)_it++);
+    auto @(field["ros" + to]["name"])@(to) = *(@(field["ros" + to]["name"])@(to)_it++);
 @[        else]@
   auto & @(field["ros" + frm]["name"])@(frm) = @(type.lower())_msg@(frm).@(field["ros" + frm]["name"]);
   auto & @(field["ros" + to]["name"])@(to) = @(type.lower())_msg@(to).@(field["ros" + to]["name"]);

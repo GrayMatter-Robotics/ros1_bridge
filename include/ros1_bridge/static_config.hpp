@@ -14,6 +14,17 @@ struct TopicParams {
     rclcpp::QoS publisher_qos;
 };
 
+enum BridgeDirection {
+    ROS1_TO_ROS2,
+    ROS2_TO_ROS1
+};
+
+struct ServiceParams {
+    std::string service_name;
+    std::string type_name;
+    BridgeDirection direction;
+};
+
 std::vector<TopicParams> TOPICS = {
     {
         "std_msgs/String",
@@ -21,5 +32,13 @@ std::vector<TopicParams> TOPICS = {
         "chatter",
         10,
         rclcpp::SystemDefaultsQoS()
+    }
+};
+
+std::vector<ServiceParams> SERVICES = {
+    {
+        "add_two_ints",
+        "example_interfaces/srv/AddTwoInts",
+        ROS1_TO_ROS2
     }
 };

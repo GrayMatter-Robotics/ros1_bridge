@@ -13,6 +13,7 @@
 // limitations under the License.
 
 #include <string>
+#include <list>
 
 // include ROS 1
 #ifdef __clang__
@@ -28,9 +29,8 @@
 #include "rclcpp/rclcpp.hpp"
 
 #include "ros1_bridge/bridge.hpp"
-
+#include "ros1_bridge/command_parser_utils.hpp"
 #include "ros1_bridge/static_config.hpp"
-#include "ros1_bridge/factory_interface.hpp"
 
 int main(int argc, char * argv[])
 {
@@ -42,7 +42,10 @@ int main(int argc, char * argv[])
   rclcpp::init(argc, argv);
   auto ros2_node = rclcpp::Node::make_shared("ros_bridge");
 
-  std::vector<ros1_bridge::BridgeHandles> all_handles;
+  std::list<ros1_bridge::BridgeHandles> all_handles;
+  std::list<ros1_bridge::ServiceBridge1to2> service_bridges_1_to_2;
+  std::list<ros1_bridge::ServiceBridge2to1> service_bridges_2_to_1;
+  int service_execution_timeout{120};
 
   for (const auto& topic_param : TOPICS) {
     all_handles.emplace_back(ros1_bridge::create_bidirectional_bridge(
@@ -54,6 +57,40 @@ int main(int argc, char * argv[])
       topic_param.queue_size,
       topic_param.publisher_qos
     ));
+  }
+
+  for (auto const& service_param : SERVICES) {
+    const std::string& service_name = service_param.service_name;
+    const std::string& type_name = service_param.type_name;
+    const size_t index = type_name.find("/");
+    if (index == std::string::npos) {
+        fprintf(stderr, "The service '%s' has a type '%s' without a slash.\n", service_name.c_str(), type_name.c_str());
+        continue;
+    }
+
+    std::string ros_version = (service_param.direction == BridgeDirection::ROS1_TO_ROS2) ? "ros2" : "ros1";
+    auto factory = ros1_bridge::get_service_factory(ros_version, type_name.substr(0, index), type_name.substr(index + 1));
+
+    if (!factory) {
+        fprintf(stderr, "Failed to create bridge for service '%s': no conversion for type '%s'\n",
+                service_name.c_str(), type_name.c_str());
+        continue;
+    }
+
+    try {
+        if (service_param.direction == BridgeDirection::ROS1_TO_ROS2) {
+            service_bridges_1_to_2.push_back(factory->service_bridge_1_to_2(
+                ros1_node, ros2_node, service_name, service_execution_timeout));
+            printf("Created 1 to 2 bridge for service %s\n", service_name.c_str());
+        } else {
+            service_bridges_2_to_1.push_back(factory->service_bridge_2_to_1(
+                ros1_node, ros2_node, service_name));
+            printf("Created 2 to 1 bridge for service %s\n", service_name.c_str());
+        }
+    } catch (std::runtime_error& e) {
+        fprintf(stderr, "Failed to create bridge for service '%s' with type '%s': %s\n",
+                service_name.c_str(), type_name.c_str(), e.what());
+    }
   }
 
   // ROS 1 asynchronous spinner

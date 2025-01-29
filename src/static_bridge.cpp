@@ -29,6 +29,8 @@
 
 #include "ros1_bridge/bridge.hpp"
 
+#include "ros1_bridge/static_config.hpp"
+#include "ros1_bridge/factory_interface.hpp"
 
 int main(int argc, char * argv[])
 {
@@ -40,14 +42,19 @@ int main(int argc, char * argv[])
   rclcpp::init(argc, argv);
   auto ros2_node = rclcpp::Node::make_shared("ros_bridge");
 
-  // bridge one example topic
-  std::string topic_name = "chatter";
-  std::string ros1_type_name = "std_msgs/String";
-  std::string ros2_type_name = "std_msgs/msg/String";
-  size_t queue_size = 10;
+  std::vector<ros1_bridge::BridgeHandles> all_handles;
 
-  auto handles = ros1_bridge::create_bidirectional_bridge(
-    ros1_node, ros2_node, ros1_type_name, ros2_type_name, topic_name, queue_size);
+  for (const auto& topic_param : TOPICS) {
+    all_handles.emplace_back(ros1_bridge::create_bidirectional_bridge(
+      ros1_node,
+      ros2_node, 
+      topic_param.ros1_type_name, 
+      topic_param.ros2_type_name,
+      topic_param.topic_name,
+      topic_param.queue_size,
+      topic_param.publisher_qos
+    ));
+  }
 
   // ROS 1 asynchronous spinner
   ros::AsyncSpinner async_spinner(1);

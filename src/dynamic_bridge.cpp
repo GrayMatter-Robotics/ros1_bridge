@@ -382,7 +382,9 @@ void update_bridge(
     }
   }
 
-  int service_execution_timeout{120};  // some services that deal with large data (pointclouds) need a longer time to complete
+  // We need 1.5 hours of timeout since some GUI services that deal with the platform over the bridge might 
+  // need operation intervention resulting in a longer wait time if no one is present to intervene 
+  int service_execution_timeout{5400};  // some services that deal with large data (pointclouds) need a longer time to complete
   ros1_node.getParamCached(
     "ros1_bridge/dynamic_bridge/service_execution_timeout", service_execution_timeout);
 

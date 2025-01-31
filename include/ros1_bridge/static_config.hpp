@@ -791,77 +791,77 @@ const std::vector<ServiceParams> SERVICES = {
     },
     {
         "/rightPlugin/popup_safeguard_recover_panel",
-        "std_srvs/srv/SetBool",
+        "std_srvs/SetBool",
         ROS1_TO_ROS2
     },
     {
         "/gui_plugin/popup_chng_sp_intrp_panel",
-        "gmr_msgs/srv/SetString",
+        "gmr_msgs/SetString",
         ROS1_TO_ROS2
     },
     {
         "/gui_plugin/popup_reload_panel",
-        "std_srvs/srv/Trigger",
+        "std_srvs/Trigger",
         ROS1_TO_ROS2
     },
     {
         "/gui_plugin/overpressure_warning",
-        "std_srvs/srv/Trigger",
+        "std_srvs/Trigger",
         ROS1_TO_ROS2
     },
     {
         "/gui_plugin/pad_change_panel",
-        "gmr_msgs/srv/ToggleUInt8",
+        "gmr_msgs/ToggleUInt8",
         ROS1_TO_ROS2
     },
     {
         "/gui_plugin/popup_manual_tool_change_panel",
-        "gmr_msgs/srv/ToggleUInt8",
+        "gmr_msgs/ToggleUInt8",
         ROS1_TO_ROS2
     },
     {
         "/gui_plugin/popup_checkpoint_decision_panel",
-        "gmr_gui_msgs/srv/GetUserCheckPointDecision",
+        "gmr_gui_msgs/GetUserCheckPointDecision",
         ROS1_TO_ROS2
     },
     {
         "/gui_plugin/afd_bottom_out_warning",
-        "std_srvs/srv/Trigger",
+        "std_srvs/Trigger",
         ROS1_TO_ROS2
     },
     {
         "/workspace_manager/get_chng_sp_user_opt",
-        "multi_robot_msgs/srv/GetUsrOpt",
+        "multi_robot_msgs/GetUsrOpt",
         ROS1_TO_ROS2
     },
     {
         "/right_plugin/update_profile_list",
-        "gmr_gui_msgs/srv/UpdtProfList",
+        "gmr_gui_msgs/UpdtProfList",
         ROS1_TO_ROS2
     },
     {
         "/right_plugin/gui_fdbk",
-        "gmr_gui_msgs/srv/GuiFdbk",
+        "gmr_gui_msgs/GuiFdbk",
         ROS1_TO_ROS2
     },
     {
         "/right_plugin/reset_tool_view",
-        "std_srvs/srv/Trigger",
+        "std_srvs/Trigger",
         ROS1_TO_ROS2
     },
     {
         "/right_plugin/set_tool_view",
-        "gmr_msgs/srv/SetString",
+        "gmr_msgs/SetString",
         ROS1_TO_ROS2
     },
     {
         "/follower_1/right_plugin/reset_tool_view",
-        "std_srvs/srv/Trigger",
+        "std_srvs/Trigger",
         ROS1_TO_ROS2
     },
     {
         "/follower_1/right_plugin/set_tool_view",
-        "gmr_msgs/srv/SetString",
+        "gmr_msgs/SetString",
         ROS1_TO_ROS2
     }
 };

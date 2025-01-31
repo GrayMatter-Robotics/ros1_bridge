@@ -32,7 +32,8 @@ const std::vector<TopicParams> TOPICS = {
         "service_manager/design_mode_status",
         1,
         rclcpp::SystemDefaultsQoS()
-    },{
+    },
+    {
         "gmr_gui_msgs/SessionInfo",
         "gmr_gui_msgs/msg/SessionInfo",
         "/guiPlugin/session_info",
@@ -536,13 +537,6 @@ const std::vector<TopicParams> TOPICS = {
         10,
         rclcpp::SystemDefaultsQoS()
     },
-    // {
-    //     "ros1_type",
-    //     "ros2_type",
-    //     topic_namespace + "/motion_intf/joint_state",
-    //     10,
-    //     rclcpp::SystemDefaultsQoS()
-    // },
     {
         "std_msgs/Bool",
         "std_msgs/msg/Bool",

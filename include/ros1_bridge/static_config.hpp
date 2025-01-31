@@ -1,8 +1,8 @@
+// Auto-generated bridge configuration
 #pragma once
 
 #include <string>
 #include <vector>
-
 #include <rclcpp/rclcpp.hpp>
 #include <rclcpp/qos.hpp>
 
@@ -25,11 +25,17 @@ struct ServiceParams {
     BridgeDirection direction;
 };
 
-std::vector<TopicParams> TOPICS = {
+const std::vector<TopicParams> TOPICS = {
     {
-        "std_msgs/String",
-        "std_msgs/msg/String",
-        "chatter",
+        "std_msgs/Bool",
+        "std_msgs/msg/Bool",
+        "service_manager/design_mode_status",
+        1,
+        rclcpp::SystemDefaultsQoS()
+    },{
+        "gmr_gui_msgs/SessionInfo",
+        "gmr_gui_msgs/msg/SessionInfo",
+        "/guiPlugin/session_info",
         10,
         rclcpp::SystemDefaultsQoS()
     },
@@ -41,9 +47,30 @@ std::vector<TopicParams> TOPICS = {
         rclcpp::SystemDefaultsQoS()
     },
     {
+        "gmr_gui_msgs/GuiCmd",
+        "gmr_gui_msgs/msg/GuiCmd",
+        "/follower_1/coordinator/gui_cmd",
+        10,
+        rclcpp::SystemDefaultsQoS()
+    },
+    {
         "gmr_gui_msgs/SeverityMsg",
         "gmr_gui_msgs/msg/SeverityMsg",
         "/general/show_message_request",
+        10,
+        rclcpp::SystemDefaultsQoS()
+    },
+    {
+        "std_msgs/UInt8",
+        "std_msgs/msg/UInt8",
+        "/remote_system/updt_event",
+        10,
+        rclcpp::SystemDefaultsQoS()
+    },
+    {
+        "gmr_gui_msgs/SeverityMsg",
+        "gmr_gui_msgs/msg/SeverityMsg",
+        "/follower_1/general/show_message_request",
         10,
         rclcpp::SystemDefaultsQoS()
     },
@@ -58,6 +85,13 @@ std::vector<TopicParams> TOPICS = {
         "gmr_gui_msgs/MvExt",
         "gmr_gui_msgs/msg/MvExt",
         "/coordinator/move_ext_cmd_from_gui",
+        10,
+        rclcpp::SystemDefaultsQoS()
+    },
+    {
+        "gmr_gui_msgs/MvExt",
+        "gmr_gui_msgs/msg/MvExt",
+        "/follower_1/coordinator/move_ext_cmd_from_gui",
         10,
         rclcpp::SystemDefaultsQoS()
     },
@@ -90,6 +124,13 @@ std::vector<TopicParams> TOPICS = {
         rclcpp::SystemDefaultsQoS()
     },
     {
+        "gmr_gui_msgs/GuiCmd",
+        "gmr_gui_msgs/msg/GuiCmd",
+        "/follower_1/right_plugin/gui_fdbk",
+        10,
+        rclcpp::SystemDefaultsQoS()
+    },
+    {
         "std_msgs/Bool",
         "std_msgs/msg/Bool",
         "/right_plugin/switch_profile_mode",
@@ -111,51 +152,30 @@ std::vector<TopicParams> TOPICS = {
         rclcpp::SystemDefaultsQoS()
     },
     {
-        "gmr_gui_msgs/GuiCmd",
-        "gmr_gui_msgs/msg/GuiCmd",
-        "/coordinator/gui_cmd",
+        "std_msgs/Bool",
+        "std_msgs/msg/Bool",
+        "/ui_manager/robot_led_fault",
         10,
         rclcpp::SystemDefaultsQoS()
     },
     {
-        "gmr_gui_msgs/MvExt",
-        "gmr_gui_msgs/msg/MvExt",
-        "/coordinator/move_ext_cmd_from_gui",
-        10,
-        rclcpp::SystemDefaultsQoS()
-    },
-    {
-        "std_msgs/UInt8",
-        "std_msgs/msg/UInt8",
-        "/coordinator/purge_compound",
-        10,
-        rclcpp::SystemDefaultsQoS()
-    },
-    {
-        "std_msgs/UInt8",
-        "std_msgs/msg/UInt8",
-        "/coordinator/overpressure_routine",
+        "std_msgs/Bool",
+        "std_msgs/msg/Bool",
+        "/follower_1/ui_manager/robot_led_fault",
         10,
         rclcpp::SystemDefaultsQoS()
     },
     {
         "std_msgs/Empty",
         "std_msgs/msg/Empty",
-        "/coordinator/change_polish_pad",
+        "/guiPlugin/tool_change_recover",
         10,
         rclcpp::SystemDefaultsQoS()
     },
     {
-        "gmr_gui_msgs/GuiCmd",
-        "gmr_gui_msgs/msg/GuiCmd",
-        "/coordinator/fast_gui_cmd",
-        10,
-        rclcpp::SystemDefaultsQoS()
-    },
-    {
-        "gmr_gui_msgs/SeverityMsg",
-        "gmr_gui_msgs/msg/SeverityMsg",
-        "/general/show_message_request",
+        "std_msgs/Int32",
+        "std_msgs/msg/Int32",
+        "/guiPlugin/manual_tool_change",
         10,
         rclcpp::SystemDefaultsQoS()
     },
@@ -163,13 +183,6 @@ std::vector<TopicParams> TOPICS = {
         "std_msgs/Bool",
         "std_msgs/msg/Bool",
         "/left_plugin/enable_change_sandpaper",
-        10,
-        rclcpp::SystemDefaultsQoS()
-    },
-    {
-        "gmr_gui_msgs/GuiCmd",
-        "gmr_gui_msgs/msg/GuiCmd",
-        "/coordinator/fast_gui_cmd",
         10,
         rclcpp::SystemDefaultsQoS()
     },
@@ -440,32 +453,135 @@ std::vector<TopicParams> TOPICS = {
         rclcpp::SystemDefaultsQoS()
     },
     {
-        "gmr_gui_msgs/GuiCmd",
-        "gmr_gui_msgs/msg/GuiCmd",
-        "/coordinator/fast_gui_cmd",
+        "std_msgs/Bool",
+        "std_msgs/msg/Bool",
+        "/guiPlugin/smart_retrieve",
         10,
         rclcpp::SystemDefaultsQoS()
     },
     {
-        "gmr_gui_msgs/GuiCmd",
-        "gmr_gui_msgs/msg/GuiCmd",
-        "/coordinator/fast_gui_cmd",
-        10,
-        rclcpp::SystemDefaultsQoS()
-    },
-    {
-        "gmr_gui_msgs/GuiCmd",
-        "gmr_gui_msgs/msg/GuiCmd",
-        "/coordinator/fast_gui_cmd",
-        10,
+        "geometry_msgs/Pose",
+        "geometry_msgs/msg/Pose",
+        "/visualization/load_tcp",
+        1,
         rclcpp::SystemDefaultsQoS()
     }
 };
 
-std::vector<ServiceParams> SERVICES = {
+const std::vector<ServiceParams> SERVICES = {
     {
-        "add_two_ints",
-        "example_interfaces/srv/AddTwoInts",
+        "/coordinator/load_multi_profile",
+        "gmr_gui_msgs/srv/LoadMultiProfile",
+        ROS2_TO_ROS1
+    },
+    {
+        "/coordinator/refill_compound",
+        "std_srvs/srv/SetBool",
+        ROS2_TO_ROS1
+    },
+    {
+        "/coordinator/set_door_unlock",
+        "std_srvs/srv/SetBool",
+        ROS2_TO_ROS1
+    },
+    {
+        "/ui_manager/readiness_check",
+        "srv_manager_msgs/srv/SystemCheck",
+        ROS2_TO_ROS1
+    },
+    {
+        "/ui_manager/readiness_check",
+        "srv_manager_msgs/srv/SystemCheck",
+        ROS2_TO_ROS1
+    },
+    {
+        "/coordinator/gui_query_robot_pose",
+        "MoMe/srv/BotPoseQry",
+        ROS2_TO_ROS1
+    },
+    {
+        "/ui_manager/start_smart_retrieve",
+        "gmr_gui_msgs/srv/SmartRetrieveState",
+        ROS2_TO_ROS1
+    },
+    {
+        "/coordinator/set_door_unlock",
+        "std_srvs/srv/SetBool",
+        ROS2_TO_ROS1
+    },
+    {
+        "/rightPlugin/popup_safeguard_recover_panel",
+        "std_srvs/srv/SetBool",
+        ROS1_TO_ROS2
+    },
+    {
+        "/gui_plugin/popup_chng_sp_intrp_panel",
+        "gmr_msgs/srv/SetString",
+        ROS1_TO_ROS2
+    },
+    {
+        "/gui_plugin/popup_reload_panel",
+        "std_srvs/srv/Trigger",
+        ROS1_TO_ROS2
+    },
+    {
+        "/gui_plugin/overpressure_warning",
+        "std_srvs/srv/Trigger",
+        ROS1_TO_ROS2
+    },
+    {
+        "/gui_plugin/pad_change_panel",
+        "gmr_msgs/srv/ToggleUInt8",
+        ROS1_TO_ROS2
+    },
+    {
+        "/gui_plugin/popup_manual_tool_change_panel",
+        "gmr_msgs/srv/ToggleUInt8",
+        ROS1_TO_ROS2
+    },
+    {
+        "/gui_plugin/popup_checkpoint_decision_panel",
+        "gmr_gui_msgs/srv/GetUserCheckPointDecision",
+        ROS1_TO_ROS2
+    },
+    {
+        "/gui_plugin/afd_bottom_out_warning",
+        "std_srvs/srv/Trigger",
+        ROS1_TO_ROS2
+    },
+    {
+        "/workspace_manager/get_chng_sp_user_opt",
+        "multi_robot_msgs/srv/GetUsrOpt",
+        ROS1_TO_ROS2
+    },
+    {
+        "/right_plugin/update_profile_list",
+        "gmr_gui_msgs/srv/UpdtProfList",
+        ROS1_TO_ROS2
+    },
+    {
+        "/right_plugin/gui_fdbk",
+        "gmr_gui_msgs/srv/GuiFdbk",
+        ROS1_TO_ROS2
+    },
+    {
+        "/right_plugin/reset_tool_view",
+        "std_srvs/srv/Trigger",
+        ROS1_TO_ROS2
+    },
+    {
+        "/right_plugin/set_tool_view",
+        "gmr_msgs/srv/SetString",
+        ROS1_TO_ROS2
+    },
+    {
+        "/follower_1/right_plugin/reset_tool_view",
+        "std_srvs/srv/Trigger",
+        ROS1_TO_ROS2
+    },
+    {
+        "/follower_1/right_plugin/set_tool_view",
+        "gmr_msgs/srv/SetString",
         ROS1_TO_ROS2
     }
 };

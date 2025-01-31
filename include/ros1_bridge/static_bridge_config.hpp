@@ -82,6 +82,13 @@ const std::vector<TopicParams> TOPICS = {
         rclcpp::SystemDefaultsQoS()
     },
     {
+        "gmr_gui_msgs/GuiCmd",
+        "gmr_gui_msgs/msg/GuiCmd",
+        "/follower_1/coordinator/fast_gui_cmd",
+        10,
+        rclcpp::SystemDefaultsQoS()
+    },
+    {
         "gmr_gui_msgs/MvExt",
         "gmr_gui_msgs/msg/MvExt",
         "/coordinator/move_ext_cmd_from_gui",
@@ -271,8 +278,8 @@ const std::vector<TopicParams> TOPICS = {
         rclcpp::SystemDefaultsQoS()
     },
     {
-        "profile_msgs/ProcSecMsg",
-        "profile_msgs/msg/ProcSecMsg",
+        "profile_msgs/ProfileProcessSection",
+        "profile_msgs/msg/ProfileProcessSection",
         "/coordinator/edit_proc_sec_from_gui",
         10,
         rclcpp::SystemDefaultsQoS()
@@ -299,8 +306,8 @@ const std::vector<TopicParams> TOPICS = {
         rclcpp::SystemDefaultsQoS()
     },
     {
-        "profile_msgs/ScanSecMsg",
-        "profile_msgs/msg/ScanSecMsg",
+        "profile_msgs/ProfileScanSection",
+        "profile_msgs/msg/ProfileScanSection",
         "/coordinator/edit_scan_sec_from_gui",
         10,
         rclcpp::SystemDefaultsQoS()
@@ -383,22 +390,22 @@ const std::vector<TopicParams> TOPICS = {
         rclcpp::SystemDefaultsQoS()
     },
     {
-        "profile_msgs/PPassAryMsg",
-        "profile_msgs/msg/PPassAryMsg",
+        "profile_msgs/ProfilePassArray",
+        "profile_msgs/msg/ProfilePassArray",
         "/coordinator/confirm_add_proc_sec",
         10,
         rclcpp::SystemDefaultsQoS()
     },
     {
-        "profile_msgs/PPassAryMsg",
-        "profile_msgs/msg/PPassAryMsg",
+        "profile_msgs/ProfilePassArray",
+        "profile_msgs/msg/ProfilePassArray",
         "/coordinator/confirm_edit_proc_sec",
         10,
         rclcpp::SystemDefaultsQoS()
     },
     {
-        "profile_msgs/PPassAryMsg",
-        "profile_msgs/msg/PPassAryMsg",
+        "profile_msgs/ProfilePassArray",
+        "profile_msgs/msg/ProfilePassArray",
         "/coordinator/pass_list_changed_from_gui",
         10,
         rclcpp::SystemDefaultsQoS()
@@ -414,41 +421,6 @@ const std::vector<TopicParams> TOPICS = {
         "std_msgs/UInt16",
         "std_msgs/msg/UInt16",
         "/coordinator/changed_simulation_frame",
-        10,
-        rclcpp::SystemDefaultsQoS()
-    },
-    {
-        "std_msgs/String",
-        "std_msgs/msg/String",
-        "/coordinator/gui_activate_macro_profile",
-        10,
-        rclcpp::SystemDefaultsQoS()
-    },
-    {
-        "profile_msgs/MacroProfile",
-        "profile_msgs/msg/MacroProfile",
-        "/coordinator/gui_add_macro_profile",
-        10,
-        rclcpp::SystemDefaultsQoS()
-    },
-    {
-        "profile_msgs/MacroProfile",
-        "profile_msgs/msg/MacroProfile",
-        "/coordinator/gui_edit_macro_profile",
-        10,
-        rclcpp::SystemDefaultsQoS()
-    },
-    {
-        "std_msgs/String",
-        "std_msgs/msg/String",
-        "/coordinator/gui_delete_macro_profile",
-        10,
-        rclcpp::SystemDefaultsQoS()
-    },
-    {
-        "std_msgs/String",
-        "std_msgs/msg/String",
-        "/coordinator/gui_load_macro_profile",
         10,
         rclcpp::SystemDefaultsQoS()
     },
@@ -649,8 +621,8 @@ const std::vector<TopicParams> TOPICS = {
         rclcpp::SystemDefaultsQoS()
     },
     {
-        "std_msgs/msg/Bool",
         "std_msgs/Bool",
+        "std_msgs/msg/Bool",
         "/follower_1/gui_plugin/enable_customer_panel",
         10,
         rclcpp::SystemDefaultsQoS()
@@ -706,7 +678,7 @@ const std::vector<TopicParams> TOPICS = {
     },
     {
         "std_msgs/Bool",
-        "std_msgs/msgBool",
+        "std_msgs/msg/Bool",
         "/right_plugin/enable_motion_button",
         10,
         rclcpp::SystemDefaultsQoS()
@@ -775,11 +747,6 @@ const std::vector<ServiceParams> SERVICES = {
     },
     {
         "/follower_1/ui_manager/readiness_check",
-        "srv_manager_msgs/srv/SystemCheck",
-        ROS2_TO_ROS1
-    },
-    {
-        "/ui_manager/readiness_check",
         "srv_manager_msgs/srv/SystemCheck",
         ROS2_TO_ROS1
     },

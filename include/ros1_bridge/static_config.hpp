@@ -131,6 +131,13 @@ const std::vector<TopicParams> TOPICS = {
         rclcpp::SystemDefaultsQoS()
     },
     {
+        "gmr_gui_msgs/GuiCmd",
+        "gmr_gui_msgs/msg/GuiCmd",
+        "/right_plugin/gui_fdbk",
+        10,
+        rclcpp::SystemDefaultsQoS()
+    },
+    {
         "std_msgs/Bool",
         "std_msgs/msg/Bool",
         "/right_plugin/switch_profile_mode",
@@ -187,22 +194,22 @@ const std::vector<TopicParams> TOPICS = {
         rclcpp::SystemDefaultsQoS()
     },
     {
-        "profile_msgs/ProfileSlimMsg",
-        "profile_msgs/msg/ProfileSlimMsg",
+        "profile_msgs/ProfileSlim",
+        "profile_msgs/msg/ProfileSlim",
         "/coordinator/gui_add_profile_info",
         10,
         rclcpp::SystemDefaultsQoS()
     },
     {
-        "profile_msgs/ProfileSlimMsg",
-        "profile_msgs/msg/ProfileSlimMsg",
+        "profile_msgs/ProfileSlim",
+        "profile_msgs/msg/ProfileSlim",
         "/coordinator/gui_edit_profile_info",
         10,
         rclcpp::SystemDefaultsQoS()
     },
     {
-        "profile_msgs/ProfileSlimMsg",
-        "profile_msgs/msg/ProfileSlimMsg",
+        "profile_msgs/ProfileSlim",
+        "profile_msgs/msg/ProfileSlim",
         "/coordinator/gui_copy_profile",
         10,
         rclcpp::SystemDefaultsQoS()
@@ -271,15 +278,15 @@ const std::vector<TopicParams> TOPICS = {
         rclcpp::SystemDefaultsQoS()
     },
     {
-        "profile_msgs/SectionTypeMsg",
-        "profile_msgs/msg/SectionTypeMsg",
+        "profile_msgs/SectionType",
+        "profile_msgs/msg/SectionType",
         "/coordinator/add_proc_sec_from_gui",
         10,
         rclcpp::SystemDefaultsQoS()
     },
     {
-        "profile_msgs/SectionTypeMsg",
-        "profile_msgs/msg/SectionTypeMsg",
+        "profile_msgs/SectionType",
+        "profile_msgs/msg/SectionType",
         "/coordinator/add_non_proc_sec_from_gui",
         10,
         rclcpp::SystemDefaultsQoS()
@@ -341,8 +348,8 @@ const std::vector<TopicParams> TOPICS = {
         rclcpp::SystemDefaultsQoS()
     },
     {
-        "profile_msgs/RobotPoseMsg",
-        "profile_msgs/msg/RobotPoseMsg",
+        "profile_msgs/RobotPose",
+        "profile_msgs/msg/RobotPose",
         "/coordinator/update_seed_from_gui",
         10,
         rclcpp::SystemDefaultsQoS()
@@ -369,8 +376,8 @@ const std::vector<TopicParams> TOPICS = {
         rclcpp::SystemDefaultsQoS()
     },
     {
-        "profile_msgs/ProfileSlimMsg",
-        "profile_msgs/msg/ProfileSlimMsg",
+        "profile_msgs/ProfileSlim",
+        "profile_msgs/msg/ProfileSlim",
         "/coordinator/gui_finish_profile",
         10,
         rclcpp::SystemDefaultsQoS()
@@ -418,15 +425,15 @@ const std::vector<TopicParams> TOPICS = {
         rclcpp::SystemDefaultsQoS()
     },
     {
-        "profile_msgs/MacroProfMsg",
-        "profile_msgs/msg/MacroProfMsg",
+        "profile_msgs/MacroProfile",
+        "profile_msgs/msg/MacroProfile",
         "/coordinator/gui_add_macro_profile",
         10,
         rclcpp::SystemDefaultsQoS()
     },
     {
-        "profile_msgs/MacroProfMsg",
-        "profile_msgs/msg/MacroProfMsg",
+        "profile_msgs/MacroProfile",
+        "profile_msgs/msg/MacroProfile",
         "/coordinator/gui_edit_macro_profile",
         10,
         rclcpp::SystemDefaultsQoS()
@@ -464,6 +471,279 @@ const std::vector<TopicParams> TOPICS = {
         "geometry_msgs/msg/Pose",
         "/visualization/load_tcp",
         1,
+        rclcpp::SystemDefaultsQoS()
+    },
+    {
+        "std_msgs/UInt8",
+        "std_msgs/msg/UInt8",
+        "/hardware_monitor/robot_status",
+        10,
+        rclcpp::SystemDefaultsQoS()
+    },
+    {
+        "std_msgs/Bool",
+        "std_msgs/msg/Bool",
+        "/guiplugin/robot_operator_status",
+        10,
+        rclcpp::SystemDefaultsQoS()
+    },
+    {
+        "std_msgs/Bool",
+        "std_msgs/msg/Bool",
+        "/hardware_monitor/camera_status",
+        10,
+        rclcpp::SystemDefaultsQoS()
+    },
+    {
+        "std_msgs/UInt8",
+        "std_msgs/msg/UInt8",
+        "/hardware_monitor/end_effector_status",
+        10,
+        rclcpp::SystemDefaultsQoS()
+    },
+    {
+        "std_msgs/Bool",
+        "std_msgs/msg/Bool",
+        "/hardware_monitor/pressure_status",
+        10,
+        rclcpp::SystemDefaultsQoS()
+    },
+    {
+        "turckio_msgs/CompoundPotStatusArray",
+        "turckio_msgs/msg/CompoundPotStatusArray",
+        "/compound_spray_hdlr/compound_pot_status",
+        10,
+        rclcpp::SystemDefaultsQoS()
+    },
+    {
+        "turckio_msgs/CompoundPotStatusArray",
+        "turckio_msgs/msg/CompoundPotStatusArray",
+        "/motion_intf/joint_state",
+        10,
+        rclcpp::SystemDefaultsQoS()
+    },
+    {
+        "sensor_msgs/JointState",
+        "sensor_msgs/msg/JointState",
+        "/motion_intf/ext_state",
+        10,
+        rclcpp::SystemDefaultsQoS()
+    },
+    {
+        "std_msgs/Bool",
+        "std_msgs/msg/Bool",
+        "/gui_plugin/enable_customer_panel",
+        10,
+        rclcpp::SystemDefaultsQoS()
+    },
+    {
+        "srv_manager_msgs/PauseOut",
+        "srv_manager_msgs/msg/PauseOut",
+        "/gui_plugin/update_pause_btn",
+        10,
+        rclcpp::SystemDefaultsQoS()
+    },
+    {
+        "std_msgs/Bool",
+        "std_msgs/msg/Bool",
+        "/gui_plugin/overpressure_routine_result",
+        10,
+        rclcpp::SystemDefaultsQoS()
+    },
+    {
+        "std_msgs/Empty",
+        "std_msgs/msg/Empty",
+        "/gui_plugin/in_overpressure_routine",
+        10,
+        rclcpp::SystemDefaultsQoS()
+    },
+    {
+        "turckio_msgs/DoorStatus",
+        "turckio_msgs/msg/DoorStatus",
+        "/safety_hdlr/door_status",
+        10,
+        rclcpp::SystemDefaultsQoS()
+    },
+    // {
+    //     "ros1_type",
+    //     "ros2_type",
+    //     topic_namespace + "/motion_intf/joint_state",
+    //     10,
+    //     rclcpp::SystemDefaultsQoS()
+    // },
+    {
+        "std_msgs/Bool",
+        "std_msgs/msg/Bool",
+        "/left_plugin/enable_work_mode",
+        10,
+        rclcpp::SystemDefaultsQoS()
+    },
+    {
+        "std_msgs/Bool",
+        "std_msgs/msg/Bool",
+        "/left_plugin/enable_design_mode",
+        10,
+        rclcpp::SystemDefaultsQoS()
+    },
+    {
+        "std_msgs/Empty",
+        "std_msgs/msg/Empty",
+        "/coordinator/ext_motion_feedback",
+        10,
+        rclcpp::SystemDefaultsQoS()
+    },
+    {
+        "std_msgs/Bool",
+        "std_msgs/msg/Bool",
+        "/left_plugin/enable_motion_button",
+        10,
+        rclcpp::SystemDefaultsQoS()
+    },
+    {
+        "turckio_msgs/CompoundPotStatusArray",
+        "turckio_msgs/msg/CompoundPotStatusArray",
+        "/follower_1/motion_intf/joint_state",
+        10,
+        rclcpp::SystemDefaultsQoS()
+    },
+    {
+        "sensor_msgs/JointState",
+        "sensor_msgs/msg/JointState",
+        "/follower_1/motion_intf/ext_state",
+        10,
+        rclcpp::SystemDefaultsQoS()
+    },
+    {
+        "std_msgs/UInt8",
+        "std_msgs/msg/UInt8",
+        "/follower_1/hardware_monitor/robot_status",
+        10,
+        rclcpp::SystemDefaultsQoS()
+    },
+    {
+        "std_msgs/Bool",
+        "std_msgs/msg/Bool",
+        "/follower_1/guiplugin/robot_operator_status",
+        10,
+        rclcpp::SystemDefaultsQoS()
+    },
+    {
+        "std_msgs/Bool",
+        "std_msgs/msg/Bool",
+        "/follower_1/hardware_monitor/camera_status",
+        10,
+        rclcpp::SystemDefaultsQoS()
+    },
+    {
+        "std_msgs/UInt8",
+        "std_msgs/msg/UInt8",
+        "/follower_1/hardware_monitor/end_effector_status",
+        10,
+        rclcpp::SystemDefaultsQoS()
+    },
+    {
+        "std_msgs/Bool",
+        "std_msgs/msg/Bool",
+        "/follower_1/hardware_monitor/pressure_status",
+        10,
+        rclcpp::SystemDefaultsQoS()
+    },
+    {
+        "std_msgs/msg/Bool",
+        "std_msgs/Bool",
+        "/follower_1/gui_plugin/enable_customer_panel",
+        10,
+        rclcpp::SystemDefaultsQoS()
+    },
+    {
+        "std_msgs/Bool",
+        "std_msgs/msg/Bool",
+        "/follower_1/top_plugin/enable_reset_btn",
+        10,
+        rclcpp::SystemDefaultsQoS()
+    },
+    {
+        "profile_msgs/Profile",
+        "profile_msgs/msg/Profile",
+        "/right_plugin/loaded_profile",
+        10,
+        rclcpp::SystemDefaultsQoS()
+    },
+    {
+        "profile_msgs/SectionType",
+        "profile_msgs/msg/SectionType",
+        "/right_plugin/loaded_sanding_section_4_add",
+        10,
+        rclcpp::SystemDefaultsQoS()
+    },
+    {
+        "profile_msgs/ProfileProcessSection",
+        "profile_msgs/msg/ProfileProcessSection",
+        "/right_plugin/loaded_sanding_section_4_edit",
+        10,
+        rclcpp::SystemDefaultsQoS()
+    },
+    {
+        "profile_msgs/ProfileScanSection",
+        "profile_msgs/msg/ProfileScanSection",
+        "/right_plugin/add_scan_section_2_gui",
+        10,
+        rclcpp::SystemDefaultsQoS()
+    },
+    {
+        "profile_msgs/ProfileProcessSection",
+        "profile_msgs/msg/ProfileProcessSection",
+        "/right_plugin/add_proc_section_2_gui",
+        10,
+        rclcpp::SystemDefaultsQoS()
+    },
+    {
+        "std_msgs/UInt16",
+        "std_msgs/msg/UInt16",
+        "/right_plugin/current_simulation_progress",
+        10,
+        rclcpp::SystemDefaultsQoS()
+    },
+    {
+        "std_msgs/Bool",
+        "std_msgs/msgBool",
+        "/right_plugin/enable_motion_button",
+        10,
+        rclcpp::SystemDefaultsQoS()
+    },
+    {
+        "profile_msgs/MacroProfile",
+        "profile_msgs/msg/MacroProfile",
+        "/right_plugin/loaded_macro_profile_2_gui",
+        10,
+        rclcpp::SystemDefaultsQoS()
+    },
+    {
+        "profile_msgs/MacroProfile",
+        "profile_msgs/msg/MacroProfile",
+        "/gui_plugin/job_done",
+        10,
+        rclcpp::SystemDefaultsQoS()
+    },
+    {
+        "profile_msgs/MacroProfile",
+        "profile_msgs/msg/MacroProfile",
+        "/gui_plugin/update_smart_retrieve",
+        10,
+        rclcpp::SystemDefaultsQoS()
+    },
+    {
+        "std_msgs/Bool",
+        "std_msgs/msg/Bool",
+        "/top_plugin/enable_reset_btn",
+        10,
+        rclcpp::SystemDefaultsQoS()
+    },
+    {
+        "geometry_msgs/Pose",
+        "geometry_msgs/msg/Pose",
+        "/visualization/current_tcp_pose",
+        10,
         rclcpp::SystemDefaultsQoS()
     }
 };

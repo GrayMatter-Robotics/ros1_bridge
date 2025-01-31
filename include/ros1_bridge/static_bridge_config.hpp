@@ -753,6 +753,10 @@ const std::vector<ServiceParams> SERVICES = {
         "/coordinator/load_multi_profile",
         "gmr_gui_msgs/srv/LoadMultiProfile",
         ROS2_TO_ROS1
+    },{
+        "/follower_1/coordinator/load_multi_profile",
+        "gmr_gui_msgs/srv/LoadMultiProfile",
+        ROS2_TO_ROS1
     },
     {
         "/coordinator/refill_compound",
@@ -766,6 +770,11 @@ const std::vector<ServiceParams> SERVICES = {
     },
     {
         "/ui_manager/readiness_check",
+        "srv_manager_msgs/srv/SystemCheck",
+        ROS2_TO_ROS1
+    },
+    {
+        "/follower_1/ui_manager/readiness_check",
         "srv_manager_msgs/srv/SystemCheck",
         ROS2_TO_ROS1
     },

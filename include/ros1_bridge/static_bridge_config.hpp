@@ -717,112 +717,112 @@ const std::vector<TopicParams> TOPICS = {
 const std::vector<ServiceParams> SERVICES = {
     {
         "/coordinator/load_multi_profile",
-        "gmr_gui_msgs/srv/LoadMultiProfile",
-        ROS1_TO_ROS2
+        "gmr_gui_msgs/LoadMultiProfile",
+        ROS2_TO_ROS1
     },
     {
         "/follower_1/coordinator/load_multi_profile",
-        "gmr_gui_msgs/srv/LoadMultiProfile",
-        ROS1_TO_ROS2
+        "gmr_gui_msgs/LoadMultiProfile",
+        ROS2_TO_ROS1
     },
     {
         "/coordinator/refill_compound",
-        "std_srvs/srv/SetBool",
-        ROS1_TO_ROS2
-    },
-    {
-        "/coordinator/set_door_unlock",
-        "std_srvs/srv/SetBool",
-        ROS1_TO_ROS2
-    },
-    {
-        "/coordinator/gui_query_robot_pose",
-        "gmr_motion_msgs/srv/RobotPoseQuery",
-        ROS1_TO_ROS2
-    },
-    {
-        "/ui_manager/start_smart_retrieve",
-        "gmr_gui_msgs/srv/SmartRetrieveState",
-        ROS1_TO_ROS2
-    },
-    // {
-    //     "/ui_manager/readiness_check",
-    //     "srv_manager_msgs/srv/SystemCheck",
-    //     ROS1_TO_ROS2
-    // },
-    // {
-    //     "/follower_1/ui_manager/readiness_check",
-    //     "srv_manager_msgs/srv/SystemCheck",
-    //     ROS1_TO_ROS2
-    // },
-    {
-        "/rightPlugin/popup_safeguard_recover_panel",
         "std_srvs/SetBool",
         ROS2_TO_ROS1
     },
     {
-        "/gui_plugin/popup_chng_sp_intrp_panel",
-        "gmr_msgs/SetString",
+        "/coordinator/set_door_unlock",
+        "std_srvs/SetBool",
         ROS2_TO_ROS1
+    },
+    {
+        "/coordinator/gui_query_robot_pose",
+        "gmr_motion_msgs/RobotPoseQuery",
+        ROS2_TO_ROS1
+    },
+    {
+        "/ui_manager/start_smart_retrieve",
+        "gmr_gui_msgs/SmartRetrieveState",
+        ROS2_TO_ROS1
+    },
+    // {
+    //     "/ui_manager/readiness_check",
+    //     "srv_manager_msgs/SystemCheck",
+    //     ROS1_TO_ROS2
+    // },
+    // {
+    //     "/follower_1/ui_manager/readiness_check",
+    //     "srv_manager_msgs/SystemCheck",
+    //     ROS1_TO_ROS2
+    // },
+    {
+        "/rightPlugin/popup_safeguard_recover_panel",
+        "std_srvs/srv/SetBool",
+        ROS1_TO_ROS2
+    },
+    {
+        "/gui_plugin/popup_chng_sp_intrp_panel",
+        "gmr_msgs/srv/SetString",
+        ROS1_TO_ROS2
     },
     {
         "/gui_plugin/popup_reload_panel",
-        "std_srvs/Trigger",
-        ROS2_TO_ROS1
+        "std_srvs/srv/Trigger",
+        ROS1_TO_ROS2
     },
     {
         "/gui_plugin/overpressure_warning",
-        "std_srvs/Trigger",
-        ROS2_TO_ROS1
+        "std_srvs/srv/Trigger",
+        ROS1_TO_ROS2
     },
     {
         "/gui_plugin/pad_change_panel",
-        "gmr_msgs/ToggleUInt8",
-        ROS2_TO_ROS1
+        "gmr_msgs/srv/ToggleUInt8",
+        ROS1_TO_ROS2
     },
     {
         "/gui_plugin/popup_manual_tool_change_panel",
-        "gmr_msgs/ToggleUInt8",
-        ROS2_TO_ROS1
+        "gmr_msgs/srv/ToggleUInt8",
+        ROS1_TO_ROS2
     },
     {
         "/gui_plugin/popup_checkpoint_decision_panel",
-        "gmr_gui_msgs/GetUserCheckPointDecision",
-        ROS2_TO_ROS1
+        "gmr_gui_msgs/srv/GetUserCheckPointDecision",
+        ROS1_TO_ROS2
     },
     {
         "/gui_plugin/afd_bottom_out_warning",
-        "std_srvs/Trigger",
-        ROS2_TO_ROS1
+        "std_srvs/srv/Trigger",
+        ROS1_TO_ROS2
     },
     {
         "/workspace_manager/get_chng_sp_user_opt",
-        "multi_robot_msgs/GetUsrOpt",
-        ROS2_TO_ROS1
+        "multi_robot_msgs/srv/GetUsrOpt",
+        ROS1_TO_ROS2
     },
     {
         "/right_plugin/update_profile_list",
-        "gmr_gui_msgs/UpdtProfList",
-        ROS2_TO_ROS1
+        "gmr_gui_msgs/srv/UpdtProfList",
+        ROS1_TO_ROS2
     },
     {
         "/right_plugin/reset_tool_view",
-        "std_srvs/Trigger",
-        ROS2_TO_ROS1
+        "std_srvs/srv/Trigger",
+        ROS1_TO_ROS2
     },
     {
         "/right_plugin/set_tool_view",
-        "gmr_msgs/SetString",
-        ROS2_TO_ROS1
+        "gmr_msgs/srv/SetString",
+        ROS1_TO_ROS2
     },
     {
         "/follower_1/right_plugin/reset_tool_view",
-        "std_srvs/Trigger",
-        ROS2_TO_ROS1
+        "std_srvs/srv/Trigger",
+        ROS1_TO_ROS2
     },
     {
         "/follower_1/right_plugin/set_tool_view",
-        "gmr_msgs/SetString",
-        ROS2_TO_ROS1
+        "gmr_msgs/srv/SetString",
+        ROS1_TO_ROS2
     }
 };

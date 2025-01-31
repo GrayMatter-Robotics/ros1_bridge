@@ -30,7 +30,7 @@
 
 #include "ros1_bridge/bridge.hpp"
 #include "ros1_bridge/command_parser_utils.hpp"
-#include "ros1_bridge/static_config.hpp"
+#include "ros1_bridge/static_bridge_config.hpp"
 
 int main(int argc, char * argv[])
 {

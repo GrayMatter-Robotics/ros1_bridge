@@ -45,7 +45,7 @@ int main(int argc, char * argv[])
   std::list<ros1_bridge::BridgeHandles> all_handles;
   std::list<ros1_bridge::ServiceBridge1to2> service_bridges_1_to_2;
   std::list<ros1_bridge::ServiceBridge2to1> service_bridges_2_to_1;
-  int service_execution_timeout{120};
+  int service_execution_timeout{5400};
 
   for (const auto& topic_param : TOPICS) {
     all_handles.emplace_back(ros1_bridge::create_bidirectional_bridge(
@@ -60,8 +60,8 @@ int main(int argc, char * argv[])
   }
 
   for (auto const& service_param : SERVICES) {
-    const std::string& service_name = service_param.service_name;
-    const std::string& type_name = service_param.type_name;
+    const std::string service_name = service_param.service_name;
+    const std::string type_name = service_param.type_name;
     const size_t index = type_name.find("/");
     if (index == std::string::npos) {
         fprintf(stderr, "The service '%s' has a type '%s' without a slash.\n", service_name.c_str(), type_name.c_str());

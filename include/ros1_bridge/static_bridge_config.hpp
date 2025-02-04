@@ -711,7 +711,22 @@ const std::vector<TopicParams> TOPICS = {
         "/visualization/current_tcp_pose",
         10,
         rclcpp::SystemDefaultsQoS()
+    },
+    {
+        "sensor_msgs/JointState",
+        "sensor_msgs/msg/JointState",
+        "/viewer/joint_state",
+        10,
+        rclcpp::SystemDefaultsQoS()
+    },
+    {
+        "tf2_msgs/TFMessage",
+        "tf2_msgs/msg/TFMessage",
+        "/tf",
+        10,
+        rclcpp::SystemDefaultsQoS()
     }
+    
 };
 
 const std::vector<ServiceParams> SERVICES = {
@@ -828,6 +843,11 @@ const std::vector<ServiceParams> SERVICES = {
     {
         "/follower_1/right_plugin/set_tool_view",
         "gmr_msgs/SetString",
+        ROS2_TO_ROS1
+    },
+    {
+        "/visualization/set_process_tool",
+        "gmr_visualization_msgs/SetTool",
         ROS2_TO_ROS1
     }
 };

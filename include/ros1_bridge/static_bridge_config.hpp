@@ -746,6 +746,12 @@ const std::vector<TopicParams> TOPICS = {
         "/viewer/env_object_array",
         10,
         rclcpp::SystemDefaultsQoS()
+    },{
+        "visualization_msgs/MarkerArray",
+        "visualization_msgs/msg/MarkerArray",
+        "/viewer/tool_path",
+        10,
+        rclcpp::SystemDefaultsQoS()
     },
     {
         "sensor_msgs/PointCloud2",

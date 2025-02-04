@@ -769,42 +769,42 @@ const std::vector<TopicParams> TOPICS = {
         rclcpp::SystemDefaultsQoS()
     },
     {
-        "std_msgs/msg/UInt16",
+        "std_msgs/UInt16",
         "std_msgs/msg/UInt16",
         "/visualization/simulation_progress",
         1,
         rclcpp::SystemDefaultsQoS()
     },
     {
-        "std_msgs/msg/Empty",
+        "std_msgs/Empty",
         "std_msgs/msg/Empty",
         "/visualization/joint_state_error",
         1,
         rclcpp::SystemDefaultsQoS()
     },
     {
-        "std_msgs/msg/Empty",
+        "std_msgs/Empty",
         "std_msgs/msg/Empty",
         "/visualization/refresh_toolpath_display",
         10,
         rclcpp::SystemDefaultsQoS()
     },
     {
-        "std_msgs/msg/Empty",
+        "std_msgs/Empty",
         "std_msgs/msg/Empty",
         "/visualization/refresh_bbox_display",
         1,
         rclcpp::SystemDefaultsQoS()
     },
     {
-        "std_msgs/msg/Empty",
+        "std_msgs/Empty",
         "std_msgs/msg/Empty",
         "/visualization/refresh_cloud_display",
         10,
         rclcpp::SystemDefaultsQoS()
     },
     {
-        "std_msgs/msg/UInt16",
+        "std_msgs/UInt16",
         "std_msgs/msg/UInt16",
         "/visualization/update_toolpath_progress",
         1,

@@ -647,7 +647,7 @@ const std::vector<TopicParams> TOPICS = {
         "profile_msgs/msg/ProfileProcessSection",
         "/right_plugin/loaded_sanding_section_4_edit",
         10,
-        rclcpp::SystemDefaultsQoS()
+        rclcpp::QoS(10).reliable()
     },
     {
         "profile_msgs/ProfileScanSection",
@@ -758,7 +758,7 @@ const std::vector<TopicParams> TOPICS = {
         "sensor_msgs/msg/PointCloud2",
         "/viewer/pointcloud",
         10,
-        rclcpp::SystemDefaultsQoS()
+        rclcpp::QoS(10).reliable()
     },
     {
         "visualization_msgs/MarkerArray",
@@ -949,8 +949,8 @@ const std::vector<ServiceParams> SERVICES = {
         ROS2_TO_ROS1
     },
     {
-        "/visualization/set_process_tool",
-        "gmr_visualization_msgs/SetTool",
+        "/right_plugin/reset_tool_description",
+        "gmr_msgs/SetString",
         ROS2_TO_ROS1
     }
 };
